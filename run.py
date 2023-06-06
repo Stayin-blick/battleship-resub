@@ -142,11 +142,52 @@ class ShipBoard(Board):
                     self.grid[random_row][random_column] = "@"
                     break
 
+def main():
+    while True:
+        try:
+            board_size = int(input("Please enter board size: "))
+            max_ships = int(board_size * board_size * 0.6)
+            while True:
+                num_ships = int(input(f"Please enter number of ships (1-{max_ships}): "))
+                if 1 <= num_ships <= max_ships:
+                    break
+                else:
+                    print(f"Invalid number of ships. Please choose a number between 1 and {max_ships}.")
+
+            game = Game(board_size, num_ships)
+            game.play()
+            play_again = input("Do you want to play again? (yes/no): ")
+            if play_again.lower() != "yes":
+                break
+        except ValueError:
+            print("Invalid input. Please enter numeric values.")
+
+
 class GuessBoard(Board):
     def __init__(self, size):
         super().__init__(size)
         self.hits = 0
 
+
+def main():
+    while True:
+        try:
+            board_size = int(input("Please enter board size: "))
+            max_ships = int(board_size * board_size * 0.6)
+            while True:
+                num_ships = int(input(f"Please enter number of ships (1-{max_ships}): "))
+                if 1 <= num_ships <= max_ships:
+                    break
+                else:
+                    print(f"Invalid number of ships. Please choose a number between 1 and {max_ships}.")
+
+            game = Game(board_size, num_ships)
+            game.play()
+            play_again = input("Do you want to play again? (yes/no): ")
+            if play_again.lower() != "yes":
+                break
+        except ValueError:
+            print("Invalid input. Please enter numeric values.")
 
 """
 setting up the game
