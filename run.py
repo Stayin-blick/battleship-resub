@@ -47,7 +47,6 @@ class GuessBoard(Board):
         super().__init__(size)
         self.hits = 0
 
-
 class Game:
     def __init__(self, board_size, num_ships):
         self.board_size = board_size
@@ -84,6 +83,44 @@ class Game:
                     print("Invalid row or column input. Try again.")
             except ValueError:
                 print("Invalid input. Please enter numeric values.")
+
+
+"""
+promots user to input gueses with error handling
+tracking hits ships
+"""
+
+class Game:
+    def __init__(self, board_size, num_ships):
+        self.board_size = board_size
+        self.num_ships = num_ships
+        self.user_board = ShipBoard(board_size)
+        self.computer_board = ShipBoard(board_size)
+        self.hidden_board = GuessBoard(board_size)
+        self.player_score = 0
+        self.computer_score = 0
+        self.round = 0
+
+class Board:
+    def __init__(self, size):
+        self.size = size
+        self.grid = [["."] * size for _ in range(size)]
+
+class ShipBoard(Board):
+    def place_ships(self, num_ships):
+        for _ in range(num_ships):
+            while True:
+                random_row = randint(0, self.size - 1)
+                random_column = randint(0, self.size - 1)
+                if self.grid[random_row][random_column] != "@":
+                    self.grid[random_row][random_column] = "@"
+                    break
+
+class GuessBoard(Board):
+    def __init__(self, size):
+        super().__init__(size)
+        self.hits = 0
+
 
 """
 setting up the game
