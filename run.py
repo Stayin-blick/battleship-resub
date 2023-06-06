@@ -1,7 +1,29 @@
 from random import randint
 
-# X represents missed shot
-# - represents hit shot
+# M represents missed shot
+# H represents hit shot
+"""
+board and ship placement
+"""
+
+
+class Board:
+    def __init__(self, size):
+        self.size = size
+        self.grid = [["."] * size for _ in range(size)]
+
+
+class ShipBoard(Board):
+    def place_ships(self, num_ships):
+        for _ in range(num_ships):
+            while True:
+                random_row = randint(0, self.size - 1)
+                random_column = randint(0, self.size - 1)
+                if self.grid[random_row][random_column] != "@":
+                    self.grid[random_row][random_column] = "@"
+                    break
+
+                
 
 """
 setting up the game
