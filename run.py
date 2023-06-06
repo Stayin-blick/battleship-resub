@@ -100,17 +100,32 @@ class Game:
         self.player_score = 0
         self.computer_score = 0
         self.round = 0
-    
+
     def welcome_message(self):
         print("----------------------------------")
         print("Welcome to ULTIMATE BATTLESHIPS!!")
         print("Board Size:", self.board_size, "Number of ships:", self.num_ships)
         print("Top left corner is row: 0, col: 0")
         print("------------------------------------")
-    
+
     def get_name(self):
         name = input("Please enter your name: ")
         return name
+
+    def get_guess(self):
+        while True:
+            try:
+                user_guess_row = int(input("Guess a row: "))
+                user_guess_column = int(input("Guess a column: "))
+                if (
+                    0 <= user_guess_row < self.board_size
+                    and 0 <= user_guess_column < self.board_size
+                ):
+                    return user_guess_row, user_guess_column
+                else:
+                    print("Invalid row or column input. Try again.")
+            except ValueError:
+                print("Invalid input. Please enter numeric values.")
 
 class Board:
     def __init__(self, size):
