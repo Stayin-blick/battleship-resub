@@ -100,6 +100,17 @@ class Game:
         self.player_score = 0
         self.computer_score = 0
         self.round = 0
+    
+    def welcome_message(self):
+        print("----------------------------------")
+        print("Welcome to ULTIMATE BATTLESHIPS!!")
+        print("Board Size:", self.board_size, "Number of ships:", self.num_ships)
+        print("Top left corner is row: 0, col: 0")
+        print("------------------------------------")
+    
+    def get_name(self):
+        name = input("Please enter your name: ")
+        return name
 
 class Board:
     def __init__(self, size):
