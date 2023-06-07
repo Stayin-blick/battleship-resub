@@ -98,46 +98,43 @@ class Game:
 
             print(name + "'s turn")
             try:
-                user_guess_row, user_guess_column = self.get_guess()
+                while True:
+                    user_guess_row, user_guess_column = self.get_guess()
 
-                if self.computer_board.grid[user_guess_row][user_guess_column] == "M":
-                    print("You guessed that one already")
-                    print("-----------------------------")
-                else:
-                    if self.user_board.grid[user_guess_row][user_guess_column] == "@":
-                        print("You scored a point")
-                        self.player_score += 1
-                        self.hidden_board.grid[user_guess_row][user_guess_column] = "H"
-                        self.computer_board.grid[user_guess_row][
-                            user_guess_column
-                        ] = "H"
+                    if self.computer_board.grid[user_guess_row][user_guess_column] == "M":
+                        print("You guessed that one already. Try again.")
+                         print("-----------------------------")
                     else:
-                        print(name + " missed this time")
-                        self.computer_board.grid[user_guess_row][
-                            user_guess_column
-                        ] = "M"
-
-                    print(name + "'s board'")
-                    for row in self.user_board.grid:
-                        print(" ".join(row))
-                    print("---------------------------------------")
-                    print("Computer's board")
-                    for row in self.computer_board.grid:
-                        print(" ".join(row))
-                    print("---------------------------------------")
-
-                    if self.count_ships_hit(self.computer_board) == self.num_ships:
-                        print(name + " wins")
                         break
+
+                if self.user_board.grid[user_guess_row][user_guess_column] == "@":
+                    print("You scored a point")
+                    self.player_score += 1
+                    self.hidden_board.grid[user_guess_row][user_guess_column] = "H"
+                    self.computer_board.grid[user_guess_row][user_guess_column] = "H"
+                else:
+                    print(name + " missed this time")
+                    self.computer_board.grid[user_guess_row][user_guess_column] = "M"
+
+                print(name + "'s board'")
+                for row in self.user_board.grid:
+                    print(" ".join(row))
+                print("---------------------------------------")
+                print("Computer's board")
+                for row in self.computer_board.grid:
+                    print(" ".join(row))
+                print("---------------------------------------")
+
+                if self.count_ships_hit(self.computer_board) == self.num_ships:
+                    print(name + " wins")
+                    break
 
                 print("Computer's turn")
                 while True:
                     computer_guess_row = randint(0, self.board_size - 1)
                     computer_guess_column = randint(0, self.board_size - 1)
                     if (
-                        self.hidden_board.grid[computer_guess_row][
-                            computer_guess_column
-                        ]
+                        self.hidden_board.grid[computer_guess_row][computer_guess_column]
                         != "M"
                     ):
                         break
@@ -148,14 +145,10 @@ class Game:
                 ):
                     print("Computer scored a point")
                     self.computer_score += 1
-                    self.user_board.grid[computer_guess_row][
-                        computer_guess_column
-                    ] = "H"
+                    self.user_board.grid[computer_guess_row][computer_guess_column] = "H"
                 else:
                     print("Computer missed this time")
-                    self.user_board.grid[computer_guess_row][
-                        computer_guess_column
-                    ] = "M"
+                    self.user_board.grid[computer_guess_row][computer_guess_column] = "M"
 
                 print(name + "'s board'")
                 for row in self.user_board.grid:
@@ -172,7 +165,6 @@ class Game:
 
                 print(
                     f"\n{name} has {self.num_ships - self.count_ships_hit(self.user_board)} ships left."
-
                 )
                 print(
                     f"\nComputer has {self.num_ships - self.count_ships_hit(self.computer_board)} ships left."
@@ -194,7 +186,9 @@ def main():
                 if 1 <= num_ships <= max_ships:
                     break
                 else:
-                    print(f"Invalid number of ships. Please choose a number between 1 and {max_ships}.")
+                    print(
+                        f"Invalid number of ships. Please choose a number between 1 and {max_ships}."
+                    )
 
             game = Game(board_size, num_ships)
             game.play()
