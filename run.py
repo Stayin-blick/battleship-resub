@@ -100,8 +100,6 @@ class Game:
             try:
                 while True:
                     user_guess_row, user_guess_column = self.get_guess()
-                while True:
-                    user_guess_row, user_guess_column = self.get_guess()
 
                     if self.computer_board.grid[user_guess_row][user_guess_column] == "M":
                         print("You guessed that one already. Try again.")
