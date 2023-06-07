@@ -7,15 +7,11 @@ positions of ships on the opponents board and try to sink
 their battleships. The player is given the option of changing 
 the grid size as well as how many battleships populate 
 the grid.
-"""
-
-from random import randint
-
 # M represents missed shot
 # H represents hit shot
 """
-board and ship placement
-"""
+
+from random import randint
 
 
 class Board:
@@ -35,17 +31,11 @@ class ShipBoard(Board):
                     break
 
 
-"""
-GuessBoard class will keeps track of the user's guesses
-initializes the game by creating the user's board, computer's board, hidden board
-welcome message and a method to get the player's name
-"""
-
-
 class GuessBoard(Board):
     def __init__(self, size):
         super().__init__(size)
         self.hits = 0
+
 
 class Game:
     def __init__(self, board_size, num_ships):
@@ -118,10 +108,14 @@ class Game:
                         print("You scored a point")
                         self.player_score += 1
                         self.hidden_board.grid[user_guess_row][user_guess_column] = "H"
-                        self.computer_board.grid[user_guess_row][user_guess_column] = "H"
+                        self.computer_board.grid[user_guess_row][
+                            user_guess_column
+                        ] = "H"
                     else:
                         print(name + " missed this time")
-                        self.computer_board.grid[user_guess_row][user_guess_column] = "M"
+                        self.computer_board.grid[user_guess_row][
+                            user_guess_column
+                        ] = "M"
 
                     print(name + "'s board'")
                     for row in self.user_board.grid:
@@ -135,62 +129,59 @@ class Game:
                     if self.count_ships_hit(self.computer_board) == self.num_ships:
                         print(name + " wins")
                         break
-                    
-        print("Computer's turn")
-        while True:
-            computer_guess_row = randint(0, self.board_size - 1)
-            computer_guess_column = randint(0, self.board_size - 1)
-            if self.hidden_board.grid[computer_guess_row][computer_guess_column] != "M":
-                break
 
-        if self.user_board.grid[computer_guess_row][computer_guess_column] == "@":
-            print("Computer scored a point")
-            self.computer_score += 1
-            self.user_board.grid[computer_guess_row][computer_guess_column] = "H"
-        else:
-            print("Computer missed this time")
-            self.user_board.grid[computer_guess_row][computer_guess_column] = "M"
+                print("Computer's turn")
+                while True:
+                    computer_guess_row = randint(0, self.board_size - 1)
+                    computer_guess_column = randint(0, self.board_size - 1)
+                    if (
+                        self.hidden_board.grid[computer_guess_row][
+                            computer_guess_column
+                        ]
+                        != "M"
+                    ):
+                        break
 
-        print(name + "'s board'")
-        for row in self.user_board.grid:
-            print(" ".join(row))
-        print("---------------------------------------")
-        print("Computer's board")
-        for row in self.computer_board.grid:
-            print(" ".join(row))
-        print("---------------------------------------")
+                if (
+                    self.user_board.grid[computer_guess_row][computer_guess_column]
+                    == "@"
+                ):
+                    print("Computer scored a point")
+                    self.computer_score += 1
+                    self.user_board.grid[computer_guess_row][
+                        computer_guess_column
+                    ] = "H"
+                else:
+                    print("Computer missed this time")
+                    self.user_board.grid[computer_guess_row][
+                        computer_guess_column
+                    ] = "M"
 
-        if self.count_ships_hit(self.user_board) == self.num_ships:
-            print("Computer wins")
-            break
+                print(name + "'s board'")
+                for row in self.user_board.grid:
+                    print(" ".join(row))
+                print("---------------------------------------")
+                print("Computer's board")
+                for row in self.computer_board.grid:
+                    print(" ".join(row))
+                print("---------------------------------------")
 
-        print(
-            f"\n{name} has {self.num_ships - self.count_ships_hit(self.user_board)} ships left."
-        )
-        print(
-            f"\nComputer has {self.num_ships - self.count_ships_hit(self.computer_board)} ships left."
-        )
-
-
-class Board:
-    def __init__(self, size):
-        self.size = size
-        self.grid = [["."] * size for _ in range(size)]
-
-class ShipBoard(Board):
-    def place_ships(self, num_ships):
-        for _ in range(num_ships):
-            while True:
-                random_row = randint(0, self.size - 1)
-                random_column = randint(0, self.size - 1)
-                if self.grid[random_row][random_column] != "@":
-                    self.grid[random_row][random_column] = "@"
+                if self.count_ships_hit(self.user_board) == self.num_ships:
+                    print("Computer wins")
                     break
 
-class GuessBoard(Board):
-    def __init__(self, size):
-        super().__init__(size)
-        self.hits = 0
+                print(
+                    f"\n{name} has {self.num_ships - self.count_ships_hit(self.user_board)} ships left."
+
+                )
+                print(
+                    f"\nComputer has {self.num_ships - self.count_ships_hit(self.computer_board)} ships left."
+                )
+
+            except ValueError:
+                print("Invalid input. Please enter numeric values.")
+            except IndexError:
+                print("Invalid row or column input. Try again.")
 
 
 def main():
@@ -213,3 +204,6 @@ def main():
         except ValueError:
             print("Invalid input. Please enter numeric values.")
 
+
+if __name__ == "__main__":
+    main()
