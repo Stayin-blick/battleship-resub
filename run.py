@@ -68,7 +68,10 @@ class Game:
                     0 <= user_guess_row < self.board_size
                     and 0 <= user_guess_column < self.board_size
                 ):
-                    return user_guess_row, user_guess_column
+                    if self.computer_board.grid[user_guess_row][user_guess_column] == "M":
+                        print("You guessed that one already. Try again.")
+                    else:
+                        return user_guess_row, user_guess_column
                 else:
                     print("Invalid row or column input. Try again.")
             except ValueError:
@@ -98,14 +101,7 @@ class Game:
 
             print(name + "'s turn")
             try:
-                while True:
-                    user_guess_row, user_guess_column = self.get_guess()
-
-                    if self.computer_board.grid[user_guess_row][user_guess_column] == "M":
-                        print("You guessed that one already. Try again.")
-                        print("-----------------------------")
-                    else:
-                        break
+                user_guess_row, user_guess_column = self.get_guess()
 
                 if self.user_board.grid[user_guess_row][user_guess_column] == "@":
                     print("You scored a point")
