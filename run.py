@@ -68,7 +68,8 @@ class Game:
                     0 <= user_guess_row < self.board_size
                     and 0 <= user_guess_column < self.board_size
                 ):
-                    if self.computer_board.grid[user_guess_row][user_guess_column] == "M":
+                    if (
+                        self.computer_board.grid[user_guess_row][user_guess_column] == "M" or self.computer_board.grid[user_guess_row][user_guess_column] == "H"):
                         print("You guessed that one already. Try again.")
                     else:
                         return user_guess_row, user_guess_column
