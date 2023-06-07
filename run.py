@@ -127,6 +127,52 @@ class Game:
             except ValueError:
                 print("Invalid input. Please enter numeric values.")
 
+    def play(self):
+        self.welcome_message()
+        name = self.get_name()
+        print(name + "'s Board:")
+        self.user_board.place_ships(self.num_ships)
+        for row in self.user_board.grid:
+            print(" ".join(row))
+
+        print("Computer's Board:")
+        for row in self.computer_board.grid:
+            print(" ".join(row))
+
+        while True:
+            self.round += 1
+            print(f"\nRound: {self.round}")
+
+            print(name + "'s turn")
+            try:
+                user_guess_row, user_guess_column = self.get_guess()
+
+                if self.computer_board.grid[user_guess_row][user_guess_column] == "M":
+                    print("You guessed that one already")
+                    print("-----------------------------")
+                else:
+                    if self.user_board.grid[user_guess_row][user_guess_column] == "@":
+                        print("You scored a point")
+                        self.player_score += 1
+                        self.hidden_board.grid[user_guess_row][user_guess_column] = "H"
+                        self.computer_board.grid[user_guess_row][user_guess_column] = "H"
+                    else:
+                        print(name + " missed this time")
+                        self.computer_board.grid[user_guess_row][user_guess_column] = "M"
+
+                    print(name + "'s board'")
+                    for row in self.user_board.grid:
+                        print(" ".join(row))
+                    print("---------------------------------------")
+                    print("Computer's board")
+                    for row in self.computer_board.grid:
+                        print(" ".join(row))
+                    print("---------------------------------------")
+
+                    if self.count_ships_hit(self.computer_board) == self.num_ships:
+                        print(name + " wins")
+                        break
+
 class Board:
     def __init__(self, size):
         self.size = size
@@ -141,27 +187,6 @@ class ShipBoard(Board):
                 if self.grid[random_row][random_column] != "@":
                     self.grid[random_row][random_column] = "@"
                     break
-
-def main():
-    while True:
-        try:
-            board_size = int(input("Please enter board size: "))
-            max_ships = int(board_size * board_size * 0.6)
-            while True:
-                num_ships = int(input(f"Please enter number of ships (1-{max_ships}): "))
-                if 1 <= num_ships <= max_ships:
-                    break
-                else:
-                    print(f"Invalid number of ships. Please choose a number between 1 and {max_ships}.")
-
-            game = Game(board_size, num_ships)
-            game.play()
-            play_again = input("Do you want to play again? (yes/no): ")
-            if play_again.lower() != "yes":
-                break
-        except ValueError:
-            print("Invalid input. Please enter numeric values.")
-
 
 class GuessBoard(Board):
     def __init__(self, size):
