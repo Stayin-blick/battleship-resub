@@ -15,12 +15,19 @@ from random import randint
 
 
 class Board:
+    """
+    Represents the game board
+    """
     def __init__(self, size):
         self.size = size
         self.grid = [["."] * size for _ in range(size)]
 
 
 class ShipBoard(Board):
+    """
+    Represents the player's ship board
+    Places ships randomly on the ship board
+    """
     def place_ships(self, num_ships):
         for _ in range(num_ships):
             while True:
@@ -32,12 +39,24 @@ class ShipBoard(Board):
 
 
 class GuessBoard(Board):
+    """
+    Computers hidden board
+    """
     def __init__(self, size):
         super().__init__(size)
         self.hits = 0
 
 
 class Game:
+    """
+    Main game
+    User input board size and number of ships
+    Welcome message
+    Player name
+    Player row and column guess
+    Number of ships hit
+    Play game
+    """
     def __init__(self, board_size, num_ships):
         self.board_size = board_size
         self.num_ships = num_ships
@@ -174,6 +193,9 @@ class Game:
 
 
 def main():
+    """
+    Main function to start game
+    """
     while True:
         try:
             board_size = int(input("Please enter board size: "))
