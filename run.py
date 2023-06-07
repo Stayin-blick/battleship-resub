@@ -84,48 +84,11 @@ class Game:
             except ValueError:
                 print("Invalid input. Please enter numeric values.")
 
-
-"""
-promots user to input gueses with error handling
-tracking hits ships
-"""
-
-class Game:
-    def __init__(self, board_size, num_ships):
-        self.board_size = board_size
-        self.num_ships = num_ships
-        self.user_board = ShipBoard(board_size)
-        self.computer_board = ShipBoard(board_size)
-        self.hidden_board = GuessBoard(board_size)
-        self.player_score = 0
-        self.computer_score = 0
-        self.round = 0
-
-    def welcome_message(self):
-        print("----------------------------------")
-        print("Welcome to ULTIMATE BATTLESHIPS!!")
-        print("Board Size:", self.board_size, "Number of ships:", self.num_ships)
-        print("Top left corner is row: 0, col: 0")
-        print("------------------------------------")
-
-    def get_name(self):
-        name = input("Please enter your name: ")
-        return name
-
-    def get_guess(self):
-        while True:
-            try:
-                user_guess_row = int(input("Guess a row: "))
-                user_guess_column = int(input("Guess a column: "))
-                if (
-                    0 <= user_guess_row < self.board_size
-                    and 0 <= user_guess_column < self.board_size
-                ):
-                    return user_guess_row, user_guess_column
-                else:
-                    print("Invalid row or column input. Try again.")
-            except ValueError:
-                print("Invalid input. Please enter numeric values.")
+    def count_ships_hit(self, board):
+        count = 0
+        for row in board.grid:
+            count += row.count("H")
+        return count
 
     def play(self):
         self.welcome_message()
