@@ -172,6 +172,42 @@ class Game:
                     if self.count_ships_hit(self.computer_board) == self.num_ships:
                         print(name + " wins")
                         break
+                    
+        print("Computer's turn")
+        while True:
+            computer_guess_row = randint(0, self.board_size - 1)
+            computer_guess_column = randint(0, self.board_size - 1)
+            if self.hidden_board.grid[computer_guess_row][computer_guess_column] != "M":
+                break
+
+        if self.user_board.grid[computer_guess_row][computer_guess_column] == "@":
+            print("Computer scored a point")
+            self.computer_score += 1
+            self.user_board.grid[computer_guess_row][computer_guess_column] = "H"
+        else:
+            print("Computer missed this time")
+            self.user_board.grid[computer_guess_row][computer_guess_column] = "M"
+
+        print(name + "'s board'")
+        for row in self.user_board.grid:
+            print(" ".join(row))
+        print("---------------------------------------")
+        print("Computer's board")
+        for row in self.computer_board.grid:
+            print(" ".join(row))
+        print("---------------------------------------")
+
+        if self.count_ships_hit(self.user_board) == self.num_ships:
+            print("Computer wins")
+            break
+
+        print(
+            f"\n{name} has {self.num_ships - self.count_ships_hit(self.user_board)} ships left."
+        )
+        print(
+            f"\nComputer has {self.num_ships - self.count_ships_hit(self.computer_board)} ships left."
+        )
+
 
 class Board:
     def __init__(self, size):
