@@ -1,11 +1,11 @@
 """
 Battleship Game resub
 --------------
-This is a command-line implementation of the Battleship game. 
-The Player takes turns against the computer in guessing the 
-positions of ships on the opponents board and try to sink 
-their battleships. The player is given the option of changing 
-the grid size as well as how many battleships populate 
+This is a command-line implementation of the Battleship game
+The Player takes turns against the computer in guessing the
+positions of ships on the opponents board and try to sink
+their battleships. The player is given the option of changing
+the grid size as well as how many battleships populate
 the grid.
 # M represents missed shot
 # H represents hit shot
@@ -81,8 +81,8 @@ class Game:
     def get_guess(self):
         while True:
             try:
-                user_guess_row = int(input("Guess a row: "))
-                user_guess_column = int(input("Guess a column: "))
+                user_guess_row = int(input("Guess a row:\n"))
+                user_guess_column = int(input("Guess a column:\n"))
                 if (
                     0 <= user_guess_row < self.board_size
                     and 0 <= user_guess_column < self.board_size
@@ -198,10 +198,10 @@ def main():
     """
     while True:
         try:
-            board_size = int(input("Please enter board size: "))
+            board_size = int(input("Please enter board size:\n"))
             max_ships = int(board_size * board_size * 0.6)
             while True:
-                num_ships = int(input(f"Please enter number of ships (1-{max_ships}): "))
+                num_ships = int(input(f"Please enter number of ships (1-{max_ships}):\n"))
                 if 1 <= num_ships <= max_ships:
                     break
                 else:
@@ -211,7 +211,7 @@ def main():
 
             game = Game(board_size, num_ships)
             game.play()
-            play_again = input("Do you want to play again? (yes/no): ")
+            play_again = input("Do you want to play again? (yes/no):\n")
             if play_again.lower() != "yes":
                 break
         except ValueError:
