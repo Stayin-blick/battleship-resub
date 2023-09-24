@@ -1,15 +1,15 @@
 """
-Battleship Game
+Battleship Game resub
 --------------
-This is a command-line implementation of the Battleship game.
-The player takes turns against the computer, guessing the
-positions of ships on the opponent's board and trying to sink
-their battleships. The player can choose the grid size and
-the number of battleships on the grid.
-# M represents a missed shot
-# H represents a hit shot
+This is a command-line implementation of the Battleship game
+The Player takes turns against the computer in guessing the
+positions of ships on the opponents board and try to sink
+their battleships. The player is given the option of changing
+the grid size as well as how many battleships populate
+the grid.
+# M represents missed shot
+# H represents hit shot
 """
-
 from random import randint
 
 
@@ -19,6 +19,9 @@ class Board:
     """
 
     def __init__(self, size):
+        """
+        Initialize the game board with the given size.
+        """
         self.size = size
         self.grid = [["."] * size for _ in range(size)]
 
@@ -30,6 +33,9 @@ class ShipBoard(Board):
     """
 
     def place_ships(self, num_ships):
+        """
+        Randomly place ships on the board based on num_ships.
+        """
         for _ in range(num_ships):
             while True:
                 random_row = randint(0, self.size - 1)
@@ -45,22 +51,23 @@ class GuessBoard(Board):
     """
 
     def __init__(self, size):
+        """
+        Create the computer's hidden board with the given size.
+        """
         super().__init__(size)
         self.hits = 0
 
 
 class Game:
     """
-    Main game.
-    User input for board size and number of ships.
-    Welcome message.
-    Player name.
-    Player row and column guess.
-    Number of ships hit.
-    Play the game.
+    Main game class.
+    Manages the game flow, user input, and scoring.
     """
 
     def __init__(self, board_size, num_ships):
+        """
+        Creates the game with the board size and number of ships.
+        """
         self.board_size = board_size
         self.num_ships = num_ships
         self.user_board = ShipBoard(board_size)
@@ -71,6 +78,9 @@ class Game:
         self.round = 0
 
     def welcome_message(self):
+        """
+        Display the welcome message and game setup information.
+        """
         print("----------------------------------")
         print("Welcome to ULTIMATE BATTLESHIPS!!")
         print(
@@ -80,10 +90,16 @@ class Game:
         print("------------------------------------")
 
     def get_name(self):
+        """
+        Get the player's name as input.
+        """
         name = input("Please enter your name: ")
         return name
 
     def get_guess(self):
+        """
+        Get the player's row and column guess.
+        """
         while True:
             try:
                 user_guess_row = int(input("Guess a row:\n"))
@@ -111,12 +127,18 @@ class Game:
                 print("Invalid input. Please enter numeric values.")
 
     def count_ships_hit(self, board):
+        """
+        Count the number of ships hit on the given board.
+        """
         count = 0
         for row in board.grid:
             count += row.count("H")
         return count
 
     def play(self):
+        """
+        Main game loop to play Battleship.
+        """
         self.welcome_message()
         name = self.get_name()
         print(name + "'s Board:")
@@ -220,6 +242,34 @@ class Game:
                 print("Invalid input. Please enter numeric values.")
             except IndexError:
                 print("Invalid row or column input. Try again.")
+
+
+def main():
+    """
+    Main function to start the Battleship game.
+    """
+    while True:
+        try:
+            board_size = int(input("Please enter board size:\n"))
+            max_ships = int(board_size * board_size * 0.6)
+            while True:
+                num_ships = int(
+                    input(f"Please enter number of ships (1-{max_ships}):\n")
+                )
+                if 1 <= num_ships <= max_ships:
+                    break
+                else:
+                    print(
+                        f"Invalid number of ships. Please choose a number between 1 and {max_ships}."
+                    )
+
+            game = Game(board_size, num_ships)
+            game.play()
+            play_again = input("Do you want to play again? (yes/no):\n")
+            if play_again.lower() != "yes":
+                break
+        except ValueError:
+            print("Invalid input. Please enter numeric values.")
 
 
 if __name__ == "__main__":
