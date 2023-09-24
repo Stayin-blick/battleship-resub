@@ -1,33 +1,30 @@
 """
-Battleship Game resub
+Battleship Game
 --------------
-This is a command-line implementation of the Battleship game
-The Player takes turns against the computer in guessing the
-positions of ships on the opponents board and try to sink
-their battleships. The player is given the option of changing
-the grid size as well as how many battleships populate
-the grid.
-# M represents missed shot
-# H represents hit shot
+This is a command-line implementation of the Battleship game.
+The player takes turns against the computer, guessing the
+positions of ships on the opponent's board and trying to sink
+their battleships. The player can choose the grid size and
+the number of battleships on the grid.
+# M represents a missed shot
+# H represents a hit shot
 """
 
 from random import randint
 
-
 class Board:
     """
-    Represents the game board
+    Represents the game board.
     """
 
     def __init__(self, size):
         self.size = size
         self.grid = [["."] * size for _ in range(size)]
 
-
 class ShipBoard(Board):
     """
-    Represents the player's ship board
-    Places ships randomly on the ship board
+    Represents the player's ship board.
+    Places ships randomly on the ship board.
     """
 
     def place_ships(self, num_ships):
@@ -39,26 +36,24 @@ class ShipBoard(Board):
                     self.grid[random_row][random_column] = "@"
                     break
 
-
 class GuessBoard(Board):
     """
-    Computers hidden board
+    Computer's hidden board.
     """
 
     def __init__(self, size):
         super().__init__(size)
         self.hits = 0
 
-
 class Game:
     """
-    Main game
-    User input board size and number of ships
-    Welcome message
-    Player name
-    Player row and column guess
-    Number of ships hit
-    Play game
+    Main game.
+    User input for board size and number of ships.
+    Welcome message.
+    Player name.
+    Player row and column guess.
+    Number of ships hit.
+    Play the game.
     """
 
     def __init__(self, board_size, num_ships):
@@ -221,36 +216,6 @@ class Game:
                 print("Invalid input. Please enter numeric values.")
             except IndexError:
                 print("Invalid row or column input. Try again.")
-
-
-def main():
-    """
-    Main function to start game
-    """
-
-    while True:
-        try:
-            board_size = int(input("Please enter board size:\n"))
-            max_ships = int(board_size * board_size * 0.6)
-            while True:
-                num_ships = int(
-                    input(f"Please enter number of ships (1-{max_ships}):\n")
-                )
-                if 1 <= num_ships <= max_ships:
-                    break
-                else:
-                    print(
-                        f"Invalid number of ships. Please choose a number between 1 and {max_ships}."
-                    )
-
-            game = Game(board_size, num_ships)
-            game.play()
-            play_again = input("Do you want to play again? (yes/no):\n")
-            if play_again.lower() != "yes":
-                break
-        except ValueError:
-            print("Invalid input. Please enter numeric values.")
-
 
 if __name__ == "__main__":
     main()
