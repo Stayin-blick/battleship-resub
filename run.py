@@ -12,6 +12,7 @@ the number of battleships on the grid.
 
 from random import randint
 
+
 class Board:
     """
     Represents the game board.
@@ -20,6 +21,7 @@ class Board:
     def __init__(self, size):
         self.size = size
         self.grid = [["."] * size for _ in range(size)]
+
 
 class ShipBoard(Board):
     """
@@ -36,6 +38,7 @@ class ShipBoard(Board):
                     self.grid[random_row][random_column] = "@"
                     break
 
+
 class GuessBoard(Board):
     """
     Computer's hidden board.
@@ -44,6 +47,7 @@ class GuessBoard(Board):
     def __init__(self, size):
         super().__init__(size)
         self.hits = 0
+
 
 class Game:
     """
@@ -216,6 +220,7 @@ class Game:
                 print("Invalid input. Please enter numeric values.")
             except IndexError:
                 print("Invalid row or column input. Try again.")
+
 
 if __name__ == "__main__":
     main()
