@@ -250,7 +250,7 @@ class Game:
                 print("Invalid row or column input. Try again.")
 
 
-def main():
+def start_game():
     """
     Main function to start the Battleship game.
     """
@@ -284,4 +284,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    start_game()
