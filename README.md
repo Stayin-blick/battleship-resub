@@ -37,6 +37,7 @@ This is a command-line implementation of the Battleship game. The player takes t
 ![Screenshot 2023-06-08 at 07 06 03](https://github.com/Stayin-blick/battleship-resub/assets/109948932/d598612e-18e2-4944-9939-cef64044857d)
 
 ## Rules
+- @ represents players own ships
 - M represents a missed shot
 - H represents a hit shot
 - Players take alternate turns at guessing ship locations
@@ -85,12 +86,13 @@ I have manaully tested this project by:
   - coordinates off the grid
   - non numerical inputs
   - repeated inputs
-- tested in my local terminal as well as hosted site 
+- tested in my local terminal as well as hosted site
+- revisited and adjusted to ensure 0 and 1 do not break game
 
 # Validator testing
 
 - PEP8
-  - f strings are above character limit but readable 
+  - ran through CI Python Linter no issues
 
 # Deployment 
 
