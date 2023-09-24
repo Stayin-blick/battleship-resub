@@ -15,6 +15,8 @@ from random import randint
 class Board:
     """
     Represents the game board.
+    size (int): The size of the square game board.
+    grid (list): A 2D list representing the state of each cell on the board.
     """
 
     def __init__(self, size):
@@ -24,10 +26,15 @@ class Board:
 class ShipBoard(Board):
     """
     Represents the player's ship board.
-    Places ships randomly on the ship board.
+    Inherits from Board class.
+    ships (int): The number of ships to be placed on the board.
     """
 
     def place_ships(self, num_ships):
+        """
+        Place ships randomly on the ship board.
+        num_ships (int): The number of ships to be placed.
+        """
         for _ in range(num_ships):
             while True:
                 random_row = randint(0, self.size - 1)
@@ -39,6 +46,7 @@ class ShipBoard(Board):
 class GuessBoard(Board):
     """
     Computer's hidden board.
+    Inherits from Board class.
     """
 
     def __init__(self, size):
@@ -48,13 +56,17 @@ class GuessBoard(Board):
 class Game:
     """
     Main game.
-    User input for board size and number of ships.
-    Welcome message.
-    Player name.
-    Player row and column guess.
-    Number of ships hit.
-    Play the game.
+
+    board_size (int): The size of the game board.
+    num_ships (int): The number of ships on the board.
+    user_board (ShipBoard): The player's ship board.
+    computer_board (ShipBoard): The computer's ship board.
+    hidden_board (GuessBoard): The computer's hidden board.
+    player_score (int): The player's score.
+    computer_score (int): The computer's score.
+    round (int): The current round number.
     """
+
 
     def __init__(self, board_size, num_ships):
         self.board_size = board_size
@@ -67,6 +79,9 @@ class Game:
         self.round = 0
 
     def welcome_message(self):
+        """
+        Print a welcome message to the console.
+        """
         print("----------------------------------")
         print("Welcome to ULTIMATE BATTLESHIPS!!")
         print(
@@ -76,10 +91,19 @@ class Game:
         print("------------------------------------")
 
     def get_name(self):
+        """
+        Get the player's name from user input.
+
+        Returns:
+        str: The player's name.
+        """
         name = input("Please enter your name: ")
         return name
 
     def get_guess(self):
+        """
+        Get the player's row and column guess from user input.
+        """
         while True:
             try:
                 user_guess_row = int(input("Guess a row:\n"))
@@ -107,12 +131,18 @@ class Game:
                 print("Invalid input. Please enter numeric values.")
 
     def count_ships_hit(self, board):
+        """
+        Count the number of ships hit on the given board.
+        """
         count = 0
         for row in board.grid:
             count += row.count("H")
         return count
 
     def play(self):
+        """
+        Play the game.
+        """
         self.welcome_message()
         name = self.get_name()
         print(name + "'s Board:")
@@ -216,6 +246,7 @@ class Game:
                 print("Invalid input. Please enter numeric values.")
             except IndexError:
                 print("Invalid row or column input. Try again.")
+
 
 if __name__ == "__main__":
     main()
