@@ -231,11 +231,17 @@ class Game:
                     print("Computer wins")
                     break
 
-                print(
-                    f"\n{name} has {self.num_ships - self.count_ships_hit(self.user_board)} ships left."
+                player_ships_left = self.num_ships - self.count_ships_hit(
+                    self.user_board
+                )
+                computer_ships_left = self.num_ships - self.count_ships_hit(
+                    self.computer_board
                 )
                 print(
-                    f"\nComputer has {self.num_ships - self.count_ships_hit(self.computer_board)} ships left."
+                    f"\n{name} has {player_ships_left} ships left."
+                )
+                print(
+                    f"\nComputer has {computer_ships_left} ships left."
                 )
 
             except ValueError:
@@ -254,6 +260,7 @@ def main():
             if board_size < 2:
                 print("Board size must be greater than or equal to 2.")
                 continue  # Restart the loop to get valid input
+
             max_ships = int(board_size * board_size * 0.6)
             while True:
                 num_ships = int(
@@ -263,7 +270,8 @@ def main():
                     break
                 else:
                     print(
-                        f"Invalid number of ships. Please choose a number between 1 and {max_ships}."
+                        f"Invalid number of ships,"
+                        f"Please choose a number between 1 and {max_ships}."
                     )
 
             game = Game(board_size, num_ships)
