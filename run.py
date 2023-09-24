@@ -251,6 +251,9 @@ def main():
     while True:
         try:
             board_size = int(input("Please enter board size:\n"))
+            if board_size < 2:	
+                print("Board size must be greater than or equal to 2.")	
+                continue  # Restart the loop to get valid input
             max_ships = int(board_size * board_size * 0.6)
             while True:
                 num_ships = int(
